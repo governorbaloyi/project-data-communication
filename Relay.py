@@ -43,6 +43,14 @@ class Relay():
         index = self.pins.index(pin)
         return (reds[index], greens[index])
     
+    def state(self):
+        s = {}
+        for pin in self.pins:
+            s.update({
+                "Pin" + str(pin): GPIO.input(pin)
+            }) 
+        return s
+    
     def cleanup(self):
         GPIO.cleanup()
         

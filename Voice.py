@@ -42,20 +42,23 @@ class Voice():
         audio1 = self.listen1()
         text = self.voice(audio1);
         print(text)
-        if 'light on' in text:
-            self.say_text("Okay Sir, Prepare for brightness")
-            processUtil.switch_on(0)
-            print("Lights on");
-        elif 'light off' in text:
-            self.say_text("Okay Sir, Prepare for less brightness")
-            processUtil.switch_off(0)
-            print("Lights off")
-        elif 'heater on' in text:
-            self.say_text("Okay Sir, Warming up the room")
-            processUtil.switch_on(1)
-        elif 'heater off' in text:
-            self.say_text("Okay Sir, Cooling down the room")
-            processUtil.switch_off(1)
+        try:
+            if 'light on' in text:
+                self.say_text("Okay Sir, Prepare for brightness")
+                processUtil.switch_on(0)
+                print("Lights on");
+            elif 'light off' in text:
+                self.say_text("Okay Sir, Prepare for less brightness")
+                processUtil.switch_off(0)
+                print("Lights off")
+            elif 'heater on' in text:
+                self.say_text("Okay Sir, Warming up the room")
+                processUtil.switch_on(1)
+            elif 'heater off' in text:
+                self.say_text("Okay Sir, Cooling down the room")
+                processUtil.switch_off(1)
+        except:
+            print("Unknown Exception")
         
     def activate(self):
         

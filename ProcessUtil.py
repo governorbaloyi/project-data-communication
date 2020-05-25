@@ -49,3 +49,6 @@ class ProcessUtil():
         
     def mic_on(self):
         self.leds.on(LEDS[8])
+        
+    def switches_state(self):
+        return self.relay.state()
