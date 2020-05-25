@@ -1,10 +1,16 @@
 import RPi.GPIO as GPIO
+from Leds import Leds
+
+reds = [4, 17, 27, 22]
+greens = [19, 13, 6, 5]
 
 class Relay():
     def __init__(self, *args):
         GPIO.setmode(GPIO.BCM)
+        GPIO.setwarnings(False)
         self.pins = args
         self.set_mode_out_all()
+        self.all_off()
     
     def set_mode_out(self, pin):
         GPIO.setup(pin, GPIO.OUT)
@@ -29,9 +35,13 @@ class Relay():
     
     def on(self, pin):
         self.output_low(pin)
-    
+        index = self.pins.index(pin)
+        return (reds[index], greens[index])
+         
     def off(self, pin):
         self.output_high(pin)
+        index = self.pins.index(pin)
+        return (reds[index], greens[index])
     
     def cleanup():
         GPIO.cleanup()

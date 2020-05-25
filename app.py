@@ -6,11 +6,12 @@ from subprocess import call
 import subprocess
 import os
 import signal
+from Voice import Voice
+from ProcessUtil import ProcessUtil
 
 app = Flask(__name__)
 
-leds = Leds(4, 17, 27, 22, 5, 6, 13, 19, 26)
-relay = Relay(18, 23, 24, 25)
+processUtil = ProcessUtil()
 
 voice_process_id = -1
 
@@ -18,9 +19,18 @@ voice_process_id = -1
 def hello_world():
     return 'Hello World'
 
+@app.route('/api/v1/self-test')
+def self_test():
+    processUtil.self_test()
+    response = jsonify (
+        message = "Self test in progress"
+    )
+    
+    return response
+
 @app.route('/api/v1/leds-on')
 def turn_on_leds():
-    leds.on()
+    processUtil.leds_on()
     response = jsonify (
         message = "Leds are turned on"
     )
@@ -28,7 +38,7 @@ def turn_on_leds():
 
 @app.route('/api/v1/leds-off')
 def turn_off_leds():
-    leds.off()
+    processUtil.leds_off()
     response = jsonify (
         message = "Leds are turned off"
     )
@@ -36,7 +46,7 @@ def turn_off_leds():
 
 @app.route('/api/v1/relay-all-on')
 def turn_on_relay():
-    relay.all_on()
+    processUtil.relay_on()
     response = jsonify(
         message = "Relay all switches on"    
     )
@@ -44,7 +54,7 @@ def turn_on_relay():
 
 @app.route('/api/v1/relay-all-off')
 def turn_off_relay():
-    relay.all_off()
+    processUtil.relay_off()
     response = jsonify(
         message = "Relay all swiches off"
     )
@@ -55,7 +65,7 @@ def start_voice():
     global voice_process_id
     strMessage = ""
     if (voice_process_id == -1):
-        process = subprocess.Popen(["python3", "Voice.py"])
+        process = subprocess.Popen(["python3", "VoiceApp.py"])
         voice_process_id = process.pid
         strMessage = "Voice process started!"
     else:
