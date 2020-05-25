@@ -43,7 +43,7 @@ class Relay():
         index = self.pins.index(pin)
         return (reds[index], greens[index])
     
-    def cleanup():
+    def cleanup(self):
         GPIO.cleanup()
         
     def __del__(self):

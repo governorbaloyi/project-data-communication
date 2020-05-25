@@ -28,6 +28,38 @@ def self_test():
     
     return response
 
+@app.route('/api/v1/heater-on')
+def heater_on():
+    processUtil.switch_on(1)
+    response = jsonify(
+        message = "Heater is on"
+    )
+    return response;
+
+@app.route('/api/v1/heater-off')
+def heater_off():
+    processUtil.switch_off(1)
+    response = jsonify(
+        message = "Heater is off"
+    )
+    return response
+
+@app.route('/api/v1/light-on')
+def light_on():
+    processUtil.switch_on(0)
+    response = jsonify(
+        message = "Light is on"
+    )
+    return response
+
+@app.route('/api/v1/light-off')
+def light_off():
+    processUtil.switch_off(0)
+    response = jsonify(
+        message = "Light is off"
+    )
+    return response
+
 @app.route('/api/v1/leds-on')
 def turn_on_leds():
     processUtil.leds_on()
@@ -62,6 +94,7 @@ def turn_off_relay():
 
 @app.route('/api/v1/mic-on')
 def start_voice():
+    processUtil.mic_on()
     global voice_process_id
     strMessage = ""
     if (voice_process_id == -1):

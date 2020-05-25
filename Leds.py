@@ -35,7 +35,7 @@ class Leds():
     def on(self, pin):
         self.output_high(pin)
     
-    def cleanup():
+    def cleanup(self):
         GPIO.cleanup()
         
     def __del__(self):

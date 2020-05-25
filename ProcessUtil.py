@@ -45,4 +45,7 @@ class ProcessUtil():
         self.relay.all_on()
         
     def relay_off(self):
-        self.relay_all_off()
+        self.relay.all_off()
+        
+    def mic_on(self):
+        self.leds.on(LEDS[8])
